@@ -58,11 +58,11 @@ const config: HardhatUserConfig = {
     },
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
+    enabled: true,
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.POLYGONSCAN_API_KEY,
+    apiKey: process.env.ETHERSCAN_API_KEY,
   },
   solidity: {
     version: "0.8.4",
