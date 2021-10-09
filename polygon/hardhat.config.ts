@@ -45,12 +45,16 @@ const config: HardhatUserConfig = {
       accounts: process.env.MAINNET_PRIVATE_KEY
         ? [process.env.MAINNET_PRIVATE_KEY]
         : [],
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
     testnet: {
       url: process.env.TESTNET_URL,
       accounts: process.env.TESTNET_PRIVATE_KEY
         ? [process.env.TESTNET_PRIVATE_KEY]
         : [],
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
   },
   gasReporter: {
