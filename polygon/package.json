@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "hardhat:run:1": "hardhat run ./scripts/1_deploy_kalai_nft.ts --network testnet",
-    "hardhat:run:2": "hardhat run ./scripts/2_mint_kalai_nft.ts --network testnet",
+    "hardhat:run:1": "hardhat run ./scripts/1_deploy_contract.ts --network testnet",
+    "hardhat:run:2": "hardhat run ./scripts/2_mint_token.ts --network testnet",
+    "hardhat:run:3": "hardhat run ./scripts/3_get_token.ts --network testnet",
     "hardhat:test": "hardhat test"
   },
   "devDependencies": {

@@ -16,31 +16,20 @@ async function main() {
     message: "Enter the contract address",
   });
 
-  const { walletAddress } = await prompts({
-    type: "text",
-    name: "walletAddress",
-    message: "Enter you wallet address",
-  });
-
-  const { metadataCid } = await prompts({
-    type: "text",
-    name: "metadataCid",
-    message: "Enter your IPFS metadata CID",
-  });
-
   console.log("Getting contract with address:", contractAddress);
   const contract = NFT.attach(contractAddress);
   const contractName = await contract.name();
   console.log("Retrieved contract with name:", contractName);
 
-  const ipfsUrl = `ipfs://${metadataCid}`;
-  console.log("Minting NFT on contract with IPFS metadata URL:", ipfsUrl);
-  const mintedNft = await contract.mint(walletAddress, ipfsUrl);
-  console.log("Minted NFT with hash:", mintedNft.hash);
+  console.log("Getting owner of contract at position:", 1);
+  const owner = await contract.ownerOf(1);
+  console.log("Retrieved owner:", owner);
+
+  console.log("Getting token URI at position:", 1);
+  const uri = await contract.tokenURI(1);
+  console.log("Retrieved URI: ", uri);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
