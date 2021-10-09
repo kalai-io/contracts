@@ -1,5 +1,4 @@
 import * as dotenv from "dotenv";
-
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
@@ -22,13 +21,36 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const networks: any = [];
+
+if (process.env.MAINNET_URL && process.env.MAINNET_PRIVATE_KEY) {
+  networks.push({
+    url: process.env.MAINNET_URL,
+    accounts: [process.env.MAINNET_PRIVATE_KEY],
+  });
+}
+
+if (process.env.TESTNET_URL && process.env.TESTNET_PRIVATE_KEY) {
+  networks.push({
+    url: process.env.TESTNET_URL,
+    accounts: [process.env.TESTNET_PRIVATE_KEY],
+  });
+}
+
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  defaultNetwork: "testnet",
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    mainnet: {
+      url: process.env.MAINNET_URL || "",
+      accounts: process.env.MAINNET_PRIVATE_KEY
+        ? [process.env.MAINNET_PRIVATE_KEY]
+        : [],
+    },
+    testnet: {
+      url: process.env.TESTNET_URL,
+      accounts: process.env.TESTNET_PRIVATE_KEY
+        ? [process.env.TESTNET_PRIVATE_KEY]
+        : [],
     },
   },
   gasReporter: {
@@ -36,7 +58,25 @@ const config: HardhatUserConfig = {
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: process.env.POLYGONSCAN_API_KEY,
+  },
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts",
+  },
+  mocha: {
+    timeout: 20000,
   },
 };
 
