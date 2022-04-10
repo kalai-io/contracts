@@ -11,7 +11,7 @@ contract KalaiNFT is ERC721, Ownable {
   using Strings for uint256;
   Counters.Counter private _tokenIds;
   mapping (uint256 => string) private _tokenURIs;
-  
+
   constructor() ERC721("KalaiNFT", "KALI") {}
   function _setTokenURI(uint256 tokenId, string memory _tokenURI)
     internal
@@ -19,7 +19,7 @@ contract KalaiNFT is ERC721, Ownable {
   {
     _tokenURIs[tokenId] = _tokenURI;
   }
-  function tokenURI(uint256 tokenId) 
+  function tokenURI(uint256 tokenId)
     public
     view
     virtual
